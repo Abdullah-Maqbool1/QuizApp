@@ -29,7 +29,6 @@ public class CategoryPanel extends JPanel {
         add(header, BorderLayout.NORTH);
 
         buttons.setLayout(new GridLayout(0, 1, 12, 12));
-        buttons.setLayout(new GridLayout(0, 1, 12, 12));
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.add(buttons);
         add(wrapper, BorderLayout.CENTER);

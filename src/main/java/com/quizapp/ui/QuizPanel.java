@@ -4,7 +4,6 @@ import com.quizapp.exception.InvalidAnswerException;
 import com.quizapp.manager.ScoreManager;
 import com.quizapp.manager.ScoreObserver;
 import com.quizapp.model.Question;
-import com.quizapp.service.QuestionLoader;
 import com.quizapp.service.QuizTimer;
 import com.quizapp.session.QuizSession;
 
@@ -21,7 +20,6 @@ public class QuizPanel extends JPanel implements ScoreObserver {
     private static final int SECONDS_PER_QUESTION = 15;
 
     private final QuizFrame frame;
-    private final QuestionLoader loader;
 
     private final JLabel progressLabel = new JLabel();
     private final JLabel scoreLabel = new JLabel();
@@ -35,9 +33,8 @@ public class QuizPanel extends JPanel implements ScoreObserver {
     private Timer swingTimer; // drives the countdown UI
     private boolean answered;
 
-    public QuizPanel(QuizFrame frame, QuestionLoader loader) {
+    public QuizPanel(QuizFrame frame) {
         this.frame = frame;
-        this.loader = loader;
 
         setLayout(new BorderLayout(0, 10));
         setBorder(BorderFactory.createEmptyBorder(20, 24, 20, 24));

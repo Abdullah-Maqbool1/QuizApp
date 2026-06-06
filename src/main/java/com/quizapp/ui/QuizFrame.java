@@ -46,7 +46,7 @@ public class QuizFrame extends JFrame {
 
         homePanel = new HomePanel(this);
         categoryPanel = new CategoryPanel(this, loader);
-        quizPanel = new QuizPanel(this, loader);
+        quizPanel = new QuizPanel(this);
         resultsPanel = new ResultsPanel(this);
 
         container.add(homePanel, HOME);
