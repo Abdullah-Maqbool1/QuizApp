@@ -9,30 +9,28 @@ import java.awt.*;
 public class HomePanel extends JPanel {
 
     public HomePanel(QuizFrame frame) {
-        setLayout(new GridBagLayout());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.insets = new Insets(12, 12, 12, 12);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
         JLabel title = new JLabel("Quiz Master");
         title.setFont(new Font("SansSerif", Font.BOLD, 40));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel subtitle = new JLabel("Pick a category, beat the clock, ace the quiz!");
         subtitle.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton start = new JButton("Start Quiz");
         start.setFont(new Font("SansSerif", Font.BOLD, 18));
         start.setPreferredSize(new Dimension(200, 50));
-        // Event handling: button click navigates to the category screen.
+        start.setMaximumSize(new Dimension(200, 50));
+        start.setAlignmentX(Component.CENTER_ALIGNMENT);
         start.addActionListener(e -> frame.show(QuizFrame.CATEGORY));
 
-        gbc.gridy = 0;
-        add(title, gbc);
-        gbc.gridy = 1;
-        add(subtitle, gbc);
-        gbc.gridy = 2;
-        gbc.insets = new Insets(30, 12, 12, 12);
-        add(start, gbc);
+        add(title);
+        add(Box.createRigidArea(new Dimension(0, 12)));
+        add(subtitle);
+        add(Box.createRigidArea(new Dimension(0, 30)));
+        add(start);
     }
 }
