@@ -16,7 +16,6 @@ public class ResultsPanel extends JPanel {
 
     public ResultsPanel(QuizFrame frame) {
         setLayout(new GridBagLayout());
-        setBackground(new Color(0x10, 0x16, 0x2A));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -24,22 +23,15 @@ public class ResultsPanel extends JPanel {
 
         JLabel title = new JLabel("Results");
         title.setFont(new Font("SansSerif", Font.BOLD, 36));
-        title.setForeground(new Color(0x4F, 0x9C, 0xFF));
 
         scoreLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
-        scoreLabel.setForeground(Color.WHITE);
 
         percentLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
-        percentLabel.setForeground(Color.LIGHT_GRAY);
 
         messageLabel.setFont(new Font("SansSerif", Font.ITALIC, 16));
-        messageLabel.setForeground(new Color(0xFF, 0xB3, 0x4F));
 
         JButton home = new JButton("Back to Home");
         home.setFont(new Font("SansSerif", Font.BOLD, 16));
-        home.setBackground(new Color(0x4F, 0x9C, 0xFF));
-        home.setForeground(Color.WHITE);
-        home.setFocusPainted(false);
         home.addActionListener(e -> frame.show(QuizFrame.HOME));
 
         gbc.gridy = 0;

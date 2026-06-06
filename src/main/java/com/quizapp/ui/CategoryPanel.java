@@ -22,25 +22,21 @@ public class CategoryPanel extends JPanel {
         this.loader = loader;
 
         setLayout(new BorderLayout());
-        setBackground(new Color(0x10, 0x16, 0x2A));
 
         JLabel header = new JLabel("Choose a Category", SwingConstants.CENTER);
         header.setFont(new Font("SansSerif", Font.BOLD, 26));
-        header.setForeground(Color.WHITE);
         header.setBorder(BorderFactory.createEmptyBorder(24, 0, 12, 0));
         add(header, BorderLayout.NORTH);
 
-        buttons.setBackground(new Color(0x10, 0x16, 0x2A));
+        buttons.setLayout(new GridLayout(0, 1, 12, 12));
         buttons.setLayout(new GridLayout(0, 1, 12, 12));
         JPanel wrapper = new JPanel(new GridBagLayout());
-        wrapper.setBackground(new Color(0x10, 0x16, 0x2A));
         wrapper.add(buttons);
         add(wrapper, BorderLayout.CENTER);
 
         JButton back = new JButton("Back");
         back.addActionListener(e -> frame.show(QuizFrame.HOME));
         JPanel south = new JPanel();
-        south.setBackground(new Color(0x10, 0x16, 0x2A));
         south.add(back);
         add(south, BorderLayout.SOUTH);
     }
@@ -52,9 +48,6 @@ public class CategoryPanel extends JPanel {
             JButton b = new JButton(category);
             b.setFont(new Font("SansSerif", Font.PLAIN, 18));
             b.setPreferredSize(new Dimension(260, 44));
-            b.setBackground(new Color(0x1E, 0x29, 0x47));
-            b.setForeground(Color.WHITE);
-            b.setFocusPainted(false);
             // Event handling: choose category -> start session -> go to quiz.
             b.addActionListener(e -> startCategory(category));
             buttons.add(b);

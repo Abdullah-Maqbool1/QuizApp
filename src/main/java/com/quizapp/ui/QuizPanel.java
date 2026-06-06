@@ -41,7 +41,6 @@ public class QuizPanel extends JPanel implements ScoreObserver {
 
         setLayout(new BorderLayout(0, 10));
         setBorder(BorderFactory.createEmptyBorder(20, 24, 20, 24));
-        setBackground(new Color(0x10, 0x16, 0x2A));
 
         add(buildHeader(), BorderLayout.NORTH);
         add(buildBody(), BorderLayout.CENTER);
@@ -52,13 +51,10 @@ public class QuizPanel extends JPanel implements ScoreObserver {
         JPanel header = new JPanel(new BorderLayout());
         header.setOpaque(false);
 
-        progressLabel.setForeground(Color.LIGHT_GRAY);
         progressLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-        scoreLabel.setForeground(new Color(0x4F, 0x9C, 0xFF));
         scoreLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
 
-        timerLabel.setForeground(new Color(0xFF, 0xB3, 0x4F));
         timerLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         timerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
@@ -76,7 +72,6 @@ public class QuizPanel extends JPanel implements ScoreObserver {
         JPanel body = new JPanel(new BorderLayout(0, 16));
         body.setOpaque(false);
 
-        questionLabel.setForeground(Color.WHITE);
         questionLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
 
         optionsPanel.setOpaque(false);
@@ -91,9 +86,6 @@ public class QuizPanel extends JPanel implements ScoreObserver {
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         footer.setOpaque(false);
         nextButton.setFont(new Font("SansSerif", Font.BOLD, 16));
-        nextButton.setBackground(new Color(0x4F, 0x9C, 0xFF));
-        nextButton.setForeground(Color.WHITE);
-        nextButton.setFocusPainted(false);
         // Event handling: Next button click.
         nextButton.addActionListener(e -> handleNext());
         footer.add(nextButton);
@@ -132,8 +124,6 @@ public class QuizPanel extends JPanel implements ScoreObserver {
         for (String option : q.getOptions()) {
             JRadioButton rb = new JRadioButton(option);
             rb.setActionCommand(option);
-            rb.setOpaque(false);
-            rb.setForeground(Color.WHITE);
             rb.setFont(new Font("SansSerif", Font.PLAIN, 16));
             optionGroup.add(rb);
             optionsPanel.add(rb);
