@@ -1,0 +1,27 @@
+# Quiz questions data file.
+# Format: category|type|text|opt1;opt2;opt3;opt4|correctAnswer
+# type is MCQ (multiple choice) or TF (true/false). TF leaves options empty.
+
+Science|MCQ|What is the chemical symbol for water?|H2O;CO2;O2;NaCl|H2O
+Science|MCQ|Which planet is known as the Red Planet?|Venus;Mars;Jupiter;Saturn|Mars
+Science|TF|The human body has four lungs.||False
+Science|TF|Sound travels faster in water than in air.||True
+Science|MCQ|What gas do plants absorb from the atmosphere?|Oxygen;Nitrogen;Carbon Dioxide;Helium|Carbon Dioxide
+
+History|MCQ|In which year did World War II end?|1918;1939;1945;1962|1945
+History|MCQ|Who was the first President of the United States?|Lincoln;Washington;Jefferson;Adams|Washington
+History|TF|The Great Wall of China is visible from space with the naked eye.||False
+History|TF|The Roman Empire fell in the 5th century AD.||True
+History|MCQ|Which ancient civilization built the pyramids of Giza?|Romans;Greeks;Egyptians;Mayans|Egyptians
+
+Geography|MCQ|What is the largest ocean on Earth?|Atlantic;Indian;Arctic;Pacific|Pacific
+Geography|MCQ|Which country has the most natural lakes?|USA;Canada;Russia;Brazil|Canada
+Geography|TF|Mount Everest is the tallest mountain above sea level.||True
+Geography|TF|Australia is both a country and a continent.||True
+Geography|MCQ|What is the capital of Japan?|Seoul;Beijing;Tokyo;Bangkok|Tokyo
+
+Technology|MCQ|What does CPU stand for?|Central Process Unit;Central Processing Unit;Core Processing Unit;Computer Personal Unit|Central Processing Unit
+Technology|MCQ|Which language is primarily used for Android app development?|Swift;Kotlin;Ruby;PHP|Kotlin
+Technology|TF|HTML is a programming language.||False
+Technology|TF|RAM is a type of volatile memory.||True
+Technology|MCQ|Who is credited with founding Microsoft?|Steve Jobs;Bill Gates;Elon Musk;Mark Zuckerberg|Bill Gates
