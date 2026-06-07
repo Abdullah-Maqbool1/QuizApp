@@ -11,9 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Screen 3: the quiz itself - question text, a live countdown timer, the
- * answer options, and a Next button. Also a live score label that updates
- * via the OBSERVER pattern.
+ * Screen 3: the quiz itself ~ question text, a live countdown timer, the
+ * answer options, and a "Next" button. Also a live score label that updates
+ * using the "OBSERVER pattern".
  */
 public class QuizPanel extends JPanel implements ScoreObserver {
 
