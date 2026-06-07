@@ -29,6 +29,8 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
         <plugins>
             <!-- Run unit tests -->
             <plugin>
@@ -45,7 +47,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.quizapp.Main</mainClass>
+                            <mainClass>QuizGUI</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
