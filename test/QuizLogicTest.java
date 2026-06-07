@@ -19,11 +19,13 @@ public class QuizLogicTest {
     }
 
     @Test
-    public void testScoringFlow() {
+    public void testScoringFlow() throws IOException {
+        String tempPath = "test_temp_questions2.txt";
+        try (FileWriter fw = new FileWriter(tempPath)) {
+            fw.write("Math|MCQ|What is 2+2?|1;2;3;4|4|20\n");
+        }
         QuizLogic logic = new QuizLogic();
-        // use built-in defaults
-        logic.loadQuestionsFromFile("nonexistent_file.txt");
-        // pick a category that exists in defaults
+        logic.loadQuestionsFromFile(tempPath);
         logic.selectCategory("Math");
         QuizLogic.Question q = logic.getCurrentQuestion();
         Assertions.assertNotNull(q);
@@ -38,7 +40,6 @@ public class QuizLogicTest {
         boolean ok = logic.submitAnswer(correctIndex);
         Assertions.assertTrue(ok);
         logic.nextQuestion();
-        // after answering one correctly, score should be 1
         Assertions.assertEquals(1, logic.getScore());
     }
 }

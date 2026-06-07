@@ -6,10 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * QuizLogic — simple quiz backend for the simplified QuizApp.
- * Keeps questions in memory, tracks current question and score.
- */
+// quiz backend logic. Responsibilities: load questions, manage quiz state, validate answers, calculate score.
 public class QuizLogic {
 
     public static class Question {
@@ -83,42 +80,6 @@ public class QuizLogic {
         loadQuestionsFromFile("questions.txt");
     }
 
-    private void loadDefaultQuestions() {
-        allQuestions.clear();
-        allQuestions.add(new QuestionBuilder()
-                .category("Math")
-                .type("MCQ")
-                .text("What is 2+2?")
-                .options(new String[]{"3", "4", "5", "6"})
-                .correctAnswer("4")
-                .timeSeconds(20)
-                .build());
-        allQuestions.add(new QuestionBuilder()
-                .category("Math")
-                .type("MCQ")
-                .text("What is 5*3?")
-                .options(new String[]{"8", "15", "10", "5"})
-                .correctAnswer("15")
-                .timeSeconds(20)
-                .build());
-        allQuestions.add(new QuestionBuilder()
-                .category("Science")
-                .type("MCQ")
-                .text("Water's chemical formula?")
-                .options(new String[]{"H2O", "CO2", "O2", "NaCl"})
-                .correctAnswer("H2O")
-                .timeSeconds(20)
-                .build());
-        allQuestions.add(new QuestionBuilder()
-                .category("General")
-                .type("MCQ")
-                .text("The sky is usually what color?")
-                .options(new String[]{"Blue", "Green", "Red", "Yellow"})
-                .correctAnswer("Blue")
-                .timeSeconds(15)
-                .build());
-    }
-
     /** Load questions from a simple text file. Format per line:
      * category|type|text|opt1;opt2;opt3;opt4|correctAnswer
      * type is MCQ or TF. For TF the options field is empty and correctAnswer is True/False.
@@ -137,7 +98,6 @@ public class QuizLogic {
             }
         } catch (IOException e) {
             System.err.println("Failed to load questions from " + path + ": " + e.getMessage());
-            loadDefaultQuestions();
             return;
         }
     }
