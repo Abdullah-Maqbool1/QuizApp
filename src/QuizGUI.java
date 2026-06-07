@@ -9,12 +9,49 @@ import java.awt.event.ActionListener;
  */
 public class QuizGUI extends JFrame {
 
-    private QuizLogic logic = new QuizLogic();
+    private QuizLogic logic = QuizManager.getInstance().getLogic();
     private JPanel cards;
     private final static String HOME = "HOME";
     private final static String CATS = "CATS";
     private final static String QUIZ = "QUIZ";
     private final static String RESULTS = "RESULTS";
+
+    private interface Command {
+        void execute();
+    }
+
+    private class ShowCardCommand implements Command {
+        private final String cardName;
+
+        private ShowCardCommand(String cardName) {
+            this.cardName = cardName;
+        }
+
+        @Override
+        public void execute() {
+            showCard(cardName);
+        }
+    }
+
+    private class StartCategoryCommand implements Command {
+        private final String category;
+
+        private StartCategoryCommand(String category) {
+            this.category = category;
+        }
+
+        @Override
+        public void execute() {
+            startCategory(category);
+        }
+    }
+
+    private class NextQuestionCommand implements Command {
+        @Override
+        public void execute() {
+            onNext();
+        }
+    }
 
     // Quiz screen components
     private JLabel questionLabel;
@@ -48,7 +85,7 @@ public class QuizGUI extends JFrame {
         p.add(title);
         JButton start = new JButton("Choose Category");
         start.setBounds(170, 120, 140, 30);
-        start.addActionListener(e -> showCard(CATS));
+        start.addActionListener(e -> new ShowCardCommand(CATS).execute());
         p.add(start);
         return p;
     }
@@ -62,7 +99,7 @@ public class QuizGUI extends JFrame {
         for (String cat : logic.getCategories()) {
             JButton b = new JButton(cat);
             b.setBounds(x, y, 120, 30);
-            b.addActionListener(e -> startCategory(cat));
+            b.addActionListener(e -> new StartCategoryCommand(cat).execute());
             p.add(b);
             y += 45;
         }
@@ -91,7 +128,7 @@ public class QuizGUI extends JFrame {
         p.add(timerLabel);
         JButton next = new JButton("Next");
         next.setBounds(370, 230, 90, 30);
-        next.addActionListener(e -> onNext());
+        next.addActionListener(e -> new NextQuestionCommand().execute());
         p.add(next);
         return p;
     }

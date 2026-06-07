@@ -30,6 +30,50 @@ public class QuizLogic {
         }
     }
 
+    public static class QuestionBuilder {
+        private String category = "";
+        private String type = "MCQ";
+        private String text = "";
+        private String[] options = new String[0];
+        private String correctAnswer = "";
+        private int timeSeconds = 30;
+
+        public QuestionBuilder category(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public QuestionBuilder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public QuestionBuilder text(String text) {
+            this.text = text;
+            return this;
+        }
+
+        public QuestionBuilder options(String[] options) {
+            this.options = options;
+            return this;
+        }
+
+        public QuestionBuilder correctAnswer(String correctAnswer) {
+            this.correctAnswer = correctAnswer;
+            return this;
+        }
+
+        public QuestionBuilder timeSeconds(int timeSeconds) {
+            this.timeSeconds = timeSeconds;
+            return this;
+        }
+
+        public Question build() {
+            return new Question(category, type, text, options, correctAnswer, timeSeconds);
+        }
+    }
+
+    private AnswerValidationStrategy validationStrategy = new DefaultAnswerValidationStrategy();
     private List<Question> allQuestions = new ArrayList<>();
     private List<Question> currentQuestions = new ArrayList<>();
     private int currentIndex = 0;
@@ -41,10 +85,38 @@ public class QuizLogic {
 
     private void loadDefaultQuestions() {
         allQuestions.clear();
-        allQuestions.add(new Question("Math", "MCQ", "What is 2+2?", new String[]{"3","4","5","6"}, "4", 20));
-        allQuestions.add(new Question("Math", "MCQ", "What is 5*3?", new String[]{"8","15","10","5"}, "15", 20));
-        allQuestions.add(new Question("Science", "MCQ", "Water's chemical formula?", new String[]{"H2O","CO2","O2","NaCl"}, "H2O", 20));
-        allQuestions.add(new Question("General", "MCQ", "The sky is usually what color?", new String[]{"Blue","Green","Red","Yellow"}, "Blue", 15));
+        allQuestions.add(new QuestionBuilder()
+                .category("Math")
+                .type("MCQ")
+                .text("What is 2+2?")
+                .options(new String[]{"3", "4", "5", "6"})
+                .correctAnswer("4")
+                .timeSeconds(20)
+                .build());
+        allQuestions.add(new QuestionBuilder()
+                .category("Math")
+                .type("MCQ")
+                .text("What is 5*3?")
+                .options(new String[]{"8", "15", "10", "5"})
+                .correctAnswer("15")
+                .timeSeconds(20)
+                .build());
+        allQuestions.add(new QuestionBuilder()
+                .category("Science")
+                .type("MCQ")
+                .text("Water's chemical formula?")
+                .options(new String[]{"H2O", "CO2", "O2", "NaCl"})
+                .correctAnswer("H2O")
+                .timeSeconds(20)
+                .build());
+        allQuestions.add(new QuestionBuilder()
+                .category("General")
+                .type("MCQ")
+                .text("The sky is usually what color?")
+                .options(new String[]{"Blue", "Green", "Red", "Yellow"})
+                .correctAnswer("Blue")
+                .timeSeconds(15)
+                .build());
     }
 
     /** Load questions from a simple text file. Format per line:
@@ -58,32 +130,23 @@ public class QuizLogic {
             while ((line = br.readLine()) != null) {
                 line = line.trim();
                 if (line.isEmpty() || line.startsWith("#")) continue;
-                String[] parts = line.split("\\|", -1);
-                if (parts.length < 5) continue; // skip malformed
-                String category = parts[0].trim();
-                String type = parts[1].trim();
-                String text = parts[2].trim();
-                String optsField = parts[3].trim();
-                String correct = parts[4].trim();
-                String[] opts;
-                if (type.equalsIgnoreCase("TF")) {
-                    opts = new String[]{"True", "False"};
-                } else {
-                    if (optsField.isEmpty()) opts = new String[0];
-                    else {
-                        opts = optsField.split(";");
-                        for (int i = 0; i < opts.length; i++) opts[i] = opts[i].trim();
-                    }
+                QuizLogic.Question question = QuestionFactory.createQuestion(line);
+                if (question != null) {
+                    allQuestions.add(question);
                 }
-                int timeSec = 30;
-                allQuestions.add(new Question(category, type, text, opts, correct, timeSec));
             }
         } catch (IOException e) {
-            // If file not found or error, fall back to built-in default questions.
             System.err.println("Failed to load questions from " + path + ": " + e.getMessage());
             loadDefaultQuestions();
             return;
         }
+    }
+
+    public void setValidationStrategy(AnswerValidationStrategy validationStrategy) {
+        if (validationStrategy == null) {
+            throw new IllegalArgumentException("Validation strategy cannot be null");
+        }
+        this.validationStrategy = validationStrategy;
     }
 
     public Set<String> getCategories() {
@@ -108,9 +171,7 @@ public class QuizLogic {
     public boolean submitAnswer(int selectedIndex) {
         Question q = getCurrentQuestion();
         if (q == null) throw new IllegalStateException("No current question");
-        if (selectedIndex < 0 || selectedIndex >= q.options.length) throw new IllegalArgumentException("Invalid answer selected");
-        String selectedText = q.options[selectedIndex];
-        boolean correct = selectedText.equalsIgnoreCase(q.correctAnswer);
+        boolean correct = validationStrategy.isCorrect(q, selectedIndex);
         if (correct) score++;
         return correct;
     }
