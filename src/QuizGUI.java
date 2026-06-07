@@ -186,9 +186,9 @@ public class QuizGUI extends JFrame {
             }
         }
         optionsGroup.clearSelection();
-        // setup timer
+        // setup timer (limit to 15 seconds maximum)
         if (swingTimer != null && swingTimer.isRunning()) swingTimer.stop();
-        timeRemaining = q.timeSeconds;
+        timeRemaining = Math.min(q.timeSeconds, 15);
         timerLabel.setText("Time: " + timeRemaining + "s");
         swingTimer = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -196,7 +196,10 @@ public class QuizGUI extends JFrame {
                 timerLabel.setText("Time: " + timeRemaining + "s");
                 if (timeRemaining <= 0) {
                     swingTimer.stop();
-                    // time out — move to next question without scoring
+                    JOptionPane.showMessageDialog(QuizGUI.this,
+                            "Time is up! This answer will be considered wrong.",
+                            "Time Expired",
+                            JOptionPane.ERROR_MESSAGE);
                     logic.nextQuestion();
                     loadQuestion();
                 }

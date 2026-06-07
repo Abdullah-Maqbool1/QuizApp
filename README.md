@@ -61,5 +61,15 @@ mvn test
 | `test/QuizLogicTest.java`                  | Unit tests for quiz logic                            |
 
 
-## Screenshot
+## Screenshots
+
+![Screenshot 1](Screenshots/1.PNG)
+
+![Screenshot 2](Screenshots/2.PNG)
+
+![Screenshot 3](Screenshots/3.PNG)
+
+![Screenshot 4](Screenshots/4.PNG)
+
+![Screenshot 5](Screenshots/5.PNG)
 
