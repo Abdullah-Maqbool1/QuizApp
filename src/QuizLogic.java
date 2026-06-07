@@ -80,13 +80,31 @@ public class QuizLogic {
         loadQuestionsFromFile("questions.txt");
     }
 
+    private BufferedReader openQuestionReader(String path) throws IOException {
+        java.io.File file = new java.io.File(path);
+        if (file.exists()) {
+            return new BufferedReader(new FileReader(file));
+        }
+        if ("questions.txt".equals(path)) {
+            java.io.File alt = new java.io.File("src/questions.txt");
+            if (alt.exists()) {
+                return new BufferedReader(new FileReader(alt));
+            }
+            java.io.InputStream resourceStream = getClass().getClassLoader().getResourceAsStream("questions.txt");
+            if (resourceStream != null) {
+                return new BufferedReader(new java.io.InputStreamReader(resourceStream));
+            }
+        }
+        throw new IOException("File not found: " + path);
+    }
+
     /** Load questions from a simple text file. Format per line:
      * category|type|text|opt1;opt2;opt3;opt4|correctAnswer
      * type is MCQ or TF. For TF the options field is empty and correctAnswer is True/False.
      */
     public final void loadQuestionsFromFile(String path) {
         allQuestions.clear();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = openQuestionReader(path)) {
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.trim();
